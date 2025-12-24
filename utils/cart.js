@@ -87,16 +87,34 @@ export function totals(cart = getCart()) {
 
 export function syncCartBadge() {
   try {
+    const { count } = totals();
+    const cartCount = count || 0;
+    const cartCountText = cartCount > 99 ? '99+' : String(cartCount);
+
+    const app = typeof getApp === 'function' ? getApp() : null;
+    if (app && app.globalData) {
+      app.globalData.cartCount = cartCount;
+      app.globalData.cartCountText = cartCountText;
+    }
+
+    if (app && typeof app.getTabBar === 'function') {
+      const tabBar = app.getTabBar();
+      if (tabBar && typeof tabBar.setData === 'function') {
+        tabBar.setData({ cartCount, cartCountText });
+        return;
+      }
+    }
+
     const canSet = typeof wx.setTabBarBadge === 'function';
     if (!canSet) return;
 
-    const { count } = totals();
-    const text = String(Math.min(count, 99));
+    const text = String(Math.min(cartCount, 99));
 
-    if (count > 0) {
-      wx.setTabBarBadge({ index: 1, text });
+    if (cartCount > 0) {
+      wx.setTabBarBadge({ index: 2, text });
     } else if (typeof wx.removeTabBarBadge === 'function') {
-      wx.removeTabBarBadge({ index: 1 });
+      wx.removeTabBarBadge({ index: 2 });
     }
   } catch (e) {}
 }
+

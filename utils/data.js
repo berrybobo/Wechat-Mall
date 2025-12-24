@@ -18,7 +18,7 @@ export const salonInfo = {
     desc: "关注社交账号获取每日现切上新",
     xiaohongshu: "蔓悦美甲果礼",
     wechat: "MANYUE-GIFT",
-    address: "深圳 · 海岸城店"
+    address: "上海市 茂名南路"
   }
 };
 

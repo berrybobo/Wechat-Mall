@@ -1,0 +1,94 @@
+<view class="guoli">
+  <view class="store-card">
+    <view class="store-main">
+      <view class="store-name">{{salonInfo.name}}</view>
+      <view class="store-desc">{{salonInfo.tagline}}</view>
+      <view class="store-notice">公告：欢迎光临本店，很高兴为您服务。</view>
+    </view>
+    <button class="store-cart" size="mini" type="default" bindtap="goCart">购物车</button>
+  </view>
+
+  <view class="top-tabs">
+    <view
+      class="top-tab {{mode === item.key ? 'active' : ''}}"
+      wx:for="{{topTabs}}"
+      wx:key="key"
+      data-mode="{{item.key}}"
+      bindtap="onModeChange"
+    >{{item.label}}</view>
+  </view>
+
+  <block wx:if="{{mode === 'order'}}">
+    <view class="menu-tabs">
+      <view
+        class="tab {{activeTab === item.key ? 'active' : ''}}"
+        wx:for="{{tabs}}"
+        wx:key="key"
+        data-tab="{{item.key}}"
+        bindtap="onTabChange"
+      >{{item.label}}</view>
+    </view>
+
+    <view class="menu">
+      <view class="menu-categories">
+        <view
+          class="cat {{activeCategory === item ? 'active' : ''}}"
+          wx:for="{{categories}}"
+          wx:key="*this"
+          data-category="{{item}}"
+          bindtap="onCategoryChange"
+        >{{item}}</view>
+      </view>
+
+      <view class="menu-list">
+        <block wx:for="{{menuProducts}}" wx:key="id">
+          <view class="menu-item" data-id="{{item.id}}" bindtap="goDetail">
+            <image class="menu-cover" src="{{item.cover}}" mode="aspectFill"></image>
+            <view class="menu-info">
+              <view class="menu-title">{{item.title}}</view>
+              <view class="menu-desc">{{item.subtitle}}</view>
+              <view class="menu-bottom">
+                <view class="menu-price">￥{{item.formattedPrice}}</view>
+                <button
+                  class="menu-add"
+                  size="mini"
+                  type="default"
+                  data-id="{{item.id}}"
+                  catchtap="addFromMenu"
+                >+</button>
+              </view>
+            </view>
+          </view>
+        </block>
+        <view class="menu-empty" wx:if="{{!menuProducts.length}}">暂无商品</view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="store-detail">
+      <view class="store-detail-title">门店信息</view>
+      <view class="store-detail-row">
+        <text class="k">客服微信</text>
+        <text class="v">{{salonInfo.community.wechat}}</text>
+      </view>
+      <view class="store-detail-row">
+        <text class="k">门店地址</text>
+        <text class="v">{{salonInfo.community.address}}</text>
+      </view>
+      <view class="store-detail-row">
+        <text class="k">小红书</text>
+        <text class="v">{{salonInfo.community.xiaohongshu}}</text>
+      </view>
+    </view>
+  </block>
+</view>
+
+<view class="cart-bar" wx:if="{{mode === 'order' && cartCount > 0}}">
+  <view class="cart-info" bindtap="goCart">
+    <view class="cart-badge">{{cartCountText}}</view>
+    <view class="cart-label">购物车</view>
+    <view class="cart-total">￥{{cartTotal}}</view>
+  </view>
+  <button class="cart-checkout" type="primary" bindtap="goCartCheckout">去结算</button>
+</view>

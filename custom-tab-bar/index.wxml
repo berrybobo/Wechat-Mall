@@ -1,0 +1,26 @@
+<view class="tabbar">
+  <view class="tabbar-inner">
+    <view class="item {{selected === 0 ? 'active' : ''}}" data-path="/pages/index/index" bindtap="onSwitch">
+      <view class="icon">首</view>
+      <view class="text">首页</view>
+    </view>
+
+    <view class="item {{selected === 1 ? 'active' : ''}}" data-path="/pages/guoli/guoli" bindtap="onSwitch">
+      <view class="icon">礼</view>
+      <view class="text">果礼</view>
+    </view>
+
+    <view class="item {{selected === 2 ? 'active' : ''}}" data-path="/pages/cart/cart" bindtap="onSwitch">
+      <view class="icon-wrap">
+        <view class="icon">购</view>
+        <view class="badge" wx:if="{{cartCount}}">{{cartCountText}}</view>
+      </view>
+      <view class="text">购物车</view>
+    </view>
+
+    <view class="item {{selected === 3 ? 'active' : ''}}" data-path="/pages/me/me" bindtap="onSwitch">
+      <view class="icon">我</view>
+      <view class="text">我的</view>
+    </view>
+  </view>
+</view>

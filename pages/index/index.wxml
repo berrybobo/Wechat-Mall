@@ -25,54 +25,25 @@
   </view>
 
   <view class="section-head">
-    <view class="title">点单</view>
-    <view class="subtitle">热门 / 推荐 · 门店现切即送</view>
+    <view class="title">热卖果礼</view>
+    <view class="subtitle">美甲后顺手带走的甜蜜</view>
   </view>
-
-  <view class="menu-tabs">
-    <view
-      class="tab {{activeTab === item.key ? 'active' : ''}}"
-      wx:for="{{tabs}}"
-      wx:key="key"
-      data-tab="{{item.key}}"
-      bindtap="onTabChange"
-    >{{item.label}}</view>
-  </view>
-
-  <view class="menu">
-    <view class="menu-categories">
-      <view
-        class="cat {{activeCategory === item ? 'active' : ''}}"
-        wx:for="{{categories}}"
-        wx:key="*this"
-        data-category="{{item}}"
-        bindtap="onCategoryChange"
-      >{{item}}</view>
-    </view>
-
-    <view class="menu-list">
-      <block wx:for="{{menuProducts}}" wx:key="id">
-        <view class="menu-item" data-id="{{item.id}}" bindtap="goDetail">
-          <image class="menu-cover" src="{{item.cover}}" mode="aspectFill"></image>
-          <view class="menu-info">
-            <view class="menu-title">{{item.title}}</view>
-            <view class="menu-desc">{{item.subtitle}}</view>
-            <view class="menu-bottom">
-              <view class="menu-price">￥{{item.formattedPrice}}</view>
-              <button
-                class="menu-add"
-                size="mini"
-                type="default"
-                data-id="{{item.id}}"
-                catchtap="addFromMenu"
-              >+</button>
-            </view>
-          </view>
+  <block wx:for="{{products}}" wx:key="id">
+    <view class="product-card" bindtap="goDetail" data-id="{{item.id}}">
+      <image class="product-cover" src="{{item.cover}}" mode="aspectFill"></image>
+      <view class="card-body">
+        <view class="name">{{item.title}}</view>
+        <view class="sub">{{item.subtitle}}</view>
+        <view class="tags" wx:if="{{item.tags && item.tags.length}}">
+          <text class="tag" wx:for="{{item.tags}}" wx:key="*this">{{item}}</text>
         </view>
-      </block>
-      <view class="menu-empty" wx:if="{{!menuProducts.length}}">暂无商品</view>
+        <view class="footer">
+          <view class="price">￥{{item.formattedPrice}}</view>
+          <view class="cta">查看礼盒</view>
+        </view>
+      </view>
     </view>
-  </view>
+  </block>
 
   <view class="section-head">
     <view class="title">如何送达</view>
@@ -106,13 +77,4 @@
       <text class="value">{{salonInfo.community.address}}</text>
     </view>
   </view>
-</view>
-
-<view class="cart-bar" wx:if="{{cartCount > 0}}">
-  <view class="cart-info" bindtap="goCart">
-    <view class="cart-badge">{{cartCountText}}</view>
-    <view class="cart-label">购物车</view>
-    <view class="cart-total">￥{{cartTotal}}</view>
-  </view>
-  <button class="cart-checkout" type="primary" bindtap="goCartCheckout">去结算</button>
 </view>
