@@ -1,0 +1,63 @@
+<view class="container">
+  <view class="store-card">
+    <view class="store-name">{{salonInfo.name}}</view>
+    <view class="store-desc">{{salonInfo.tagline}}</view>
+    <view class="store-info">
+      <text>客服微信：{{salonInfo.community.wechat}}</text>
+      <text>门店地址：{{salonInfo.community.address}}</text>
+    </view>
+  </view>
+
+  <view class="summary" wx:if="{{mode === 'single' && product}}">
+    <view class="summary-title">礼盒确认</view>
+    <text>商品：{{product.title}}（{{spec}}）</text>
+    <text>金额：￥{{formattedPrice}}</text>
+  </view>
+
+  <view class="summary" wx:if="{{mode === 'cart' && cartItems.length}}">
+    <view class="summary-title">购物车确认</view>
+    <block wx:for="{{cartItems}}" wx:key="id">
+      <view class="cart-line">
+        <view class="cart-line-main">
+          <text class="cart-title">{{item.title}}</text>
+          <text class="cart-spec" wx:if="{{item.spec}}">{{item.spec}}</text>
+        </view>
+        <text class="cart-qty">x{{item.qty}}</text>
+        <text class="cart-price">￥{{item.displayPrice}}</text>
+      </view>
+    </block>
+    <view class="summary-total">合计：￥{{formattedTotal}}</view>
+  </view>
+
+  <form bindsubmit="submitOrder">
+    <view class="section">
+      <view class="field-label">收礼人</view>
+      <input name="recipient" placeholder="姓名" />
+    </view>
+    <view class="section">
+      <view class="field-label">手机号</view>
+      <input name="phone" placeholder="手机号" type="number" />
+    </view>
+    <view class="section">
+      <view class="field-label">送达地址</view>
+      <input name="address" placeholder="门牌号 / 楼层等" />
+    </view>
+    <view class="section">
+      <view class="field-label">送达日期</view>
+      <picker mode="date" start="{{startDate}}" bindchange="onDateChange">
+        <view class="picker">{{deliveryDate || '请选择日期'}}</view>
+      </picker>
+    </view>
+    <view class="section">
+      <view class="field-label">祝福语</view>
+      <textarea name="message" placeholder="例：谢谢你陪我做指甲，也请收下甜蜜水果~"></textarea>
+    </view>
+
+    <button formType="submit" type="primary">微信支付</button>
+  </form>
+
+  <view class="tips">
+    <view>• 14:00 前下单默认当日现切，超区顺丰冷链</view>
+    <view>• 如需代写卡片请在祝福语备注</view>
+  </view>
+</view>

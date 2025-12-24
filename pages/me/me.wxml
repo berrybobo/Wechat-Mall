@@ -1,0 +1,12 @@
+<view class="me">
+  <view class="profile">
+    <image class="avatar" src="https://img.yzcdn.cn/vant/avatar.jpg" />
+    <view class="name">点击登录</view>
+  </view>
+  <view class="cells">
+    <view class="cell" bindtap="viewOrders">我的订单</view>
+    <view class="cell" bindtap="manageAddress">地址管理</view>
+    <view class="cell" bindtap="contact">联系客服</view>
+    <view class="cell" bindtap="about">关于我们</view>
+  </view>
+</view>

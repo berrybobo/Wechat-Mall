@@ -1,0 +1,118 @@
+<view class="home">
+  <view class="hero card">
+    <view class="hero-info">
+      <view class="brand">{{salonInfo.name}}</view>
+      <view class="tagline">{{salonInfo.tagline}}</view>
+      <view class="slogan">{{salonInfo.slogan}}</view>
+      <view class="feature-wrap">
+        <text class="feature" wx:for="{{salonInfo.features}}" wx:key="*this">{{item}}</text>
+      </view>
+    </view>
+    <image class="hero-img" src="{{salonInfo.heroImage}}" mode="aspectFill"></image>
+  </view>
+
+  <view class="highlight card">
+    <view class="section-title">{{salonInfo.highlight.title}}</view>
+    <view class="section-desc">{{salonInfo.highlight.desc}}</view>
+    <view class="perk-list">
+      <block wx:for="{{salonInfo.highlight.perks}}" wx:key="title">
+        <view class="perk">
+          <view class="perk-title">{{item.title}}</view>
+          <view class="perk-desc">{{item.detail}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="section-head">
+    <view class="title">点单</view>
+    <view class="subtitle">热门 / 推荐 · 门店现切即送</view>
+  </view>
+
+  <view class="menu-tabs">
+    <view
+      class="tab {{activeTab === item.key ? 'active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="key"
+      data-tab="{{item.key}}"
+      bindtap="onTabChange"
+    >{{item.label}}</view>
+  </view>
+
+  <view class="menu">
+    <view class="menu-categories">
+      <view
+        class="cat {{activeCategory === item ? 'active' : ''}}"
+        wx:for="{{categories}}"
+        wx:key="*this"
+        data-category="{{item}}"
+        bindtap="onCategoryChange"
+      >{{item}}</view>
+    </view>
+
+    <view class="menu-list">
+      <block wx:for="{{menuProducts}}" wx:key="id">
+        <view class="menu-item" data-id="{{item.id}}" bindtap="goDetail">
+          <image class="menu-cover" src="{{item.cover}}" mode="aspectFill"></image>
+          <view class="menu-info">
+            <view class="menu-title">{{item.title}}</view>
+            <view class="menu-desc">{{item.subtitle}}</view>
+            <view class="menu-bottom">
+              <view class="menu-price">￥{{item.formattedPrice}}</view>
+              <button
+                class="menu-add"
+                size="mini"
+                type="default"
+                data-id="{{item.id}}"
+                catchtap="addFromMenu"
+              >+</button>
+            </view>
+          </view>
+        </view>
+      </block>
+      <view class="menu-empty" wx:if="{{!menuProducts.length}}">暂无商品</view>
+    </view>
+  </view>
+
+  <view class="section-head">
+    <view class="title">如何送达</view>
+    <view class="subtitle">门店现切 · 冷链抵达</view>
+  </view>
+  <view class="process card">
+    <block wx:for="{{process}}" wx:key="title">
+      <view class="step">
+        <view class="step-index">0{{index + 1}}</view>
+        <view class="step-title">{{item.title}}</view>
+        <view class="step-desc">{{item.desc}}</view>
+      </view>
+    </block>
+  </view>
+
+  <view class="section-head">
+    <view class="title">{{salonInfo.community.title}}</view>
+    <view class="subtitle">{{salonInfo.community.desc}}</view>
+  </view>
+  <view class="community card">
+    <view class="community-item">
+      <text class="label">小红书</text>
+      <text class="value">{{salonInfo.community.xiaohongshu}}</text>
+    </view>
+    <view class="community-item">
+      <text class="label">客服微信</text>
+      <text class="value">{{salonInfo.community.wechat}}</text>
+    </view>
+    <view class="community-item">
+      <text class="label">门店地址</text>
+      <text class="value">{{salonInfo.community.address}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="cart-bar" wx:if="{{cartCount > 0}}">
+  <view class="cart-info" bindtap="goCart">
+    <view class="cart-badge">{{cartCountText}}</view>
+    <view class="cart-label">购物车</view>
+    <view class="cart-total">￥{{cartTotal}}</view>
+  </view>
+  <button class="cart-checkout" type="primary" bindtap="goCartCheckout">去结算</button>
+</view>

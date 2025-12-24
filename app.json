@@ -1,0 +1,38 @@
+{
+    "pages":  [
+                  "pages/index/index",
+                  "pages/product/product",
+                  "pages/checkout/checkout",
+                  "pages/order-success/order-success",
+                  "pages/cart/cart",
+                  "pages/me/me"
+              ],
+    "window":  {
+                   "navigationBarTitleText":  "蔓悦果礼",
+                   "navigationBarBackgroundColor":  "#ffffff",
+                   "navigationBarTextStyle":  "black",
+                   "backgroundTextStyle":  "light"
+               },
+    "style":  "v2",
+    "sitemapLocation":  "sitemap.json",
+    "tabBar":  {
+                   "color":  "#666666",
+                   "selectedColor":  "#111111",
+                   "backgroundColor":  "#ffffff",
+                   "borderStyle":  "black",
+                   "list":  [
+                                {
+                                    "pagePath":  "pages/index/index",
+                                    "text":  "首页"
+                                },
+                                {
+                                    "pagePath":  "pages/cart/cart",
+                                    "text":  "购物车"
+                                },
+                                {
+                                    "pagePath":  "pages/me/me",
+                                    "text":  "我的"
+                                }
+                            ]
+               }
+}

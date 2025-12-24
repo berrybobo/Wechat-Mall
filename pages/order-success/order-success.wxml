@@ -1,0 +1,7 @@
+<view class="container">
+  <view class="icon">✓</view>
+  <view class="title">订单已支付</view>
+  <view class="sub">我们将按时为收礼人送达</view>
+  <view class="order" wx:if="{{orderId}}">订单号：{{orderId}}</view>
+  <button type="default" bindtap="backHome">返回首页</button>
+</view>
